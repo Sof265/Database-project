@@ -84,3 +84,20 @@ products_clean_1['SizeClothes']=products_clean_1['SizeClothes'].replace('',np.na
 products_clean_1.drop(columns=['FrenchDescription','SpanishProductName', \
 'FrenchProductName','WeightUnitMeasureCode','SizeUnitMeasureCode'],inplace = True)
 ```
+
+## Carga de datos a SQL Server
+Posterior a la carga de datos mediante las consultas disponibles en el enlace:
+[SQL Server Upload](https://github.com/Sof265/Database-project/blob/main/SQLServerUpload/db_creation_SQL.sql)
+
+Se realizaron consultas de validacióncomo las siguientes:
+* ¿Qué clientes se destacan por el tiempo que llevan comprando, la cantidad y total de compra?
+<p align="left">
+<img src="imagenes/sql-top-clients.png" height="200" width="450">
+</p>
+* ¿Cuáles son los productos con más unidades vendidas?
+<p align="left">
+<img src="imagenes/sql-units-product.png" height="200" width="300">
+</p>
+
+Para visualizar consultas adicionales:
+[Validación de la carga de datos y KPIs](https://github.com/Sof265/Database-project/blob/main/SQLServerUpload/ConsultasValidacion.sql)
