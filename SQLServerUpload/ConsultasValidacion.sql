@@ -40,7 +40,15 @@ c.Gender, c.EnglishOccupation, c.MaritalStatus, c.EnglishEducation, c.YearlyInco
 DATEDIFF (year, c.BirthDate, GETDATE ())
 ORDER BY SUM(s.SalesAmount) DESC;
 
--- 4. ¿Qué clientes se destacan por el tiempo que llevan comprando, la cantidad y total de compra?
+-- 4 ¿Cuáles son los productos con más unidades vendidas?
+SELECT TOP 20 p.EnglishProductName,  COUNT(*) AS UnitsSold
+FROM dbo.products AS p
+JOIN dbo.sales AS s
+ON p.ProductKey = s.ProductKey
+GROUP BY p.ProductKey, p.EnglishProductName
+ORDER BY COUNT(*) DESC; 
+
+-- 5. ¿Qué clientes se destacan por el tiempo que llevan comprando, la cantidad y total de compra?
 SELECT TOP 10 CustomerName, DATEDIFF(day, DateFirstPurchase, DateLastPurchase)/365.0 AS Years,
 PurchaseTotal, ProductsCount, DateLastPurchase
 FROM(
@@ -52,7 +60,7 @@ JOIN dbo.customers AS c
 ON c.CustomerKey = s.CustomerKey
 GROUP BY c.CustomerKey, CONCAT(c.FirstName, ' ', c.LastName), c.DateFirstPurchase
 ) AS FirstLastPurchase
-WHERE DATEDIFF(month, DateLastPurchase, (SELECT MAX(OrderDate)FROM dbo.sales)) > 6
+WHERE DATEDIFF(month, DateLastPurchase, (SELECT MAX(OrderDate)FROM dbo.sales)) < 6
 ORDER BY DATEDIFF(day, DateFirstPurchase, DateLastPurchase)/365.0 DESC,
 PurchaseTotal DESC, ProductsCount DESC;
 
